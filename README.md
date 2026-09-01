@@ -1,67 +1,36 @@
-**[View document in Syncfusion .NET MAUI Knowledge Base](https://www.syncfusion.com/kb/13176/how-to-highlight-the-tapped-view-in-itemtemplate-in-net-maui-listview-sflistview)**
+# How to highlight the tapped view in ItemTemplate in .NET MAUI ListView (SfListView)?
 
-## Sample
+In [.NET MAUI ListView (SfListView)](https://www.syncfusion.com/maui-controls/maui-listview), you can customize the appearance by highlighting views within the ItemTemplate when tapped. This can be achieved through event handling and custom value converters to dynamically change the background color based on user interactions.
 
-```xaml
-ContentPage.Resources>
-    <ResourceDictionary>
-        <local:BackgroundColorConverter x:Key="backgroundColorConverter"/>
-    </ResourceDictionary>
-</ContentPage.Resources>
+Steps:
+1. Define your SfListView with a custom ItemTemplate. Use a behavior to handle tap actions and update the view state.
 
-<ContentPage.Content>
-    <syncfusion:SfListView x:Name="listView"  ItemSpacing="1" 
-                        ItemSize="120" ItemsSource="{Binding contactsinfo}">
-            <syncfusion:SfListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Button x:Name="Button1" Margin="5" CornerRadius="15" Text="Busy" FontFamily="RobotoMedium" FontSize="15" BackgroundColor="{Binding Availability, Converter={StaticResource backgroundColorConverter}, ConverterParameter={x:Reference Button1}}" TextColor="Black" Grid.Column="1"/>
-                        <Button x:Name="Button2" Margin="5" CornerRadius="15" Text="Available" FontFamily="RobotoMedium" FontSize="15" BackgroundColor="{Binding Availability, Converter={StaticResource backgroundColorConverter}, ConverterParameter={x:Reference Button2}}" TextColor="Black" Grid.Column="2"/>
-                        <Button x:Name="Button3" Margin="5" CornerRadius="15" Text="Away" FontFamily="RobotoMedium" FontSize="15" BackgroundColor="{Binding Availability, Converter={StaticResource backgroundColorConverter}, ConverterParameter={x:Reference Button3}}" TextColor="Black" Grid.Column="3"/>
-                    </Grid>
-                </DataTemplate>
-            </syncfusion:SfListView.ItemTemplate>
-        </syncfusion:SfListView>
-</ContentPage.Content>
+2. The created behavior handles the tap event to update the view's background color based on the tapped button.
 
-C#:
+3. Create a converter to adjust the button's background color based on the Availability property.
 
-Button1.Clicked += OnClicked;
-Button2.Clicked += OnClicked;
-Button3.Clicked += OnClicked;
+**Output**
 
-private void OnClicked(object sender, EventArgs e)
-{
-    var button = sender as Button;
-    var bc = button.BindingContext as Contacts;
+![apply the tapped view in ItemTemplate in MAUI](https://www.syncfusion.com/uploads/user/kb/maui/maui-1824/maui-1824_img1.png)
 
-    if (button.Text == "Available")
-        bc.Availability = true;
-    else if (button.Text == "Away")
-        bc.Availability = false;
-    else
-        bc.Availability = null;
-}
+Download the
+complete sample on [GitHub](https://github.com/SyncfusionExamples/how-to-highlight-the-tapped-view-in-itemtemplate-in-.net-maui-listview "https://github.com/SyncfusionExamples/how-to-highlight-the-tapped-view-in-itemtemplate-in-.net-maui-listview")
 
-public class BackgroundColorConverter : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        var button = parameter as Button;
+**Conclusion**
 
-        if ((bool?)value == null && button.Text == "Busy")
-            return Colors.Red;
-        else if ((bool?)value == true && button.Text == "Available")
-            return Colors.YellowGreen;
-        else if ((bool?)value == false && button.Text == "Away")
-            return Colors.Orange;
-        else
-            return Colors.Transparent;
-    }
+I hope you enjoyed learning how to highlight the tapped view in ItemTemplate in the .NET MAUI ListView (SfListView).
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
-}
-```
+You can refer to our[.NET MAUI ListView feature
+tour](https://www.syncfusion.com/maui-controls/maui-listview) page to know about its other groundbreaking feature
+representations and [documentation](https://help.syncfusion.com/maui/listview/getting-started), and
+how to get started with configuration specifications quickly. You can also
+explore our[.NET MAUI ListView example](https://github.com/syncfusion/maui-demos/tree/master/MAUI/ListView/SampleBrowser.Maui.ListView) to
+understand how to create and manipulate data.
+
+For current customers, check out
+our components from the [License and Downloads](https://www.syncfusion.com/sales/teamlicense) page. If
+you are new to Syncfusion®, try our 30-day [free trial](https://www.syncfusion.com/downloads/maui)to check
+out our other controls.
+
+Please let us know in the comments section if you have any queries or require clarification. Contact us through
+our [support forums](https://www.syncfusion.com/forums/), [Direct-Trac](https://support.syncfusion.com/create), or [feedback portal.](https://www.syncfusion.com/feedback/maui?control=sflistview) We are always happy to assist you!
